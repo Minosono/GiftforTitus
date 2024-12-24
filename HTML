@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Briefumschlag Animation</title>
+<style>
+body {
+  background-color: gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  font-family: sans-serif;
+  color: white;
+}
+
+.container {
+  position: relative;
+}
+
+.envelope {
+  width: 200px;
+  height: 150px;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  position: absolute;
+  cursor: pointer;
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background-color: #adadad;
+  clip-path: polygon(0 0, 50% 50%, 100% 0);
+  transform-origin: 50% 0%;
+  transition: transform 0.5s ease-in-out;
+}
+
+.envelope.open .flap {
+  transform: rotateX(-180deg);
+}
+
+.money {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 70px;
+  background-color: #0f0;
+  border: 2px solid #0a0;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out 0.5s;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center; /* Zentriert horizontal */
+    align-items: center;     /* Zentriert vertikal */
+    font-size: 3em; /* Größe der 10€ angepasst */
+}
+
+.money::before {
+    content: "10€";
+}
+
+
+.envelope.open ~ .money {
+  opacity: 1;
+}
+
+h1 {
+  position: absolute;
+  top: -260px; /* Position über dem Geldschein */
+  width: -20%;
+  text-align: left;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out 1s;
+  white-space: nowrap; /* Verhindert Zeilenumbrüche */
+    font-size: 2.2em;
+}
+
+h1::before {
+    content: '"10€ Für deinen Bildschirm"';
+}
+
+.envelope.open ~ h1 {
+  opacity: 1;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="envelope" onclick="openEnvelope(this)">
+    <div class="flap"></div>
+  </div>
+  <div class="money"></div>
+  <h1></h1>
+</div>
+
+<script>
+function openEnvelope(envelope) {
+  envelope.classList.add('open');
+  setTimeout(() => {
+    envelope.style.display = 'none';
+  }, 500);
+}
+</script>
+
+</body>
+</html>
